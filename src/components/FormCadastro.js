@@ -1,17 +1,31 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import {
+    changeEmail, 
+    changePassword, 
+    changeName, 
+    registerUser 
+} from '../actions/AutenticationAction';
 
 class FormCadastro extends Component {
     static navigationOptions = {
         title: 'Cadastro'
     };
+
+    _registerUser() {
+        const { name, email, password } = this.props;
+        
+        this.props.registerUser({ name, email, password });
+    }
     render() {
         return (
             <View style={{ flex: 1, padding: 10, backgroundColor: '#FFF' }}>
                 <View style={{ flex: 2, justifyContent: 'center' }}>
                     <Input 
+                        onChangeText={text => this.props.changeName(text)} 
                         value={this.props.name}
                         inputContainerStyle={styles.inputContainer}
                         placeholder="Nome"
@@ -24,7 +38,8 @@ class FormCadastro extends Component {
                             />
                         }  
                     />
-                    <Input 
+                    <Input
+                        onChangeText={text => this.props.changeEmail(text)} 
                         value={this.props.email}
                         inputContainerStyle={styles.inputContainer}
                         placeholder="E-mail" 
@@ -37,7 +52,9 @@ class FormCadastro extends Component {
                         } 
                     />
                     <Input 
+                        onChangeText={text => this.props.changePassword(text)} 
                         value={this.props.password}
+                        secureTextEntry
                         inputContainerStyle={styles.inputContainer}
                         placeholder="Senha" 
                         leftIcon={ 
@@ -56,7 +73,7 @@ class FormCadastro extends Component {
                         type='outline' 
                         title="Cadastrar" 
                         color="#115E54" 
-                        onPress={() => false} 
+                        onPress={() => this._registerUser()} 
                     />
                 </View>
             </View>
@@ -78,4 +95,11 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps, null)(FormCadastro);
+export default connect(
+    mapStateToProps, 
+    { 
+        changeEmail, 
+        changePassword, 
+        changeName, 
+        registerUser 
+})(FormCadastro);

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Input, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { changeEmail, changePassword } from '../actions/AutenticationAction';
 
 class FormLogin extends Component {
     static navigationOptions = {
         header: null,
     };
     render() {
+        console.log(this.props);
         return (
             <View style={{ flex: 1, padding: 15 }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -15,6 +17,7 @@ class FormLogin extends Component {
                 </View>
                 <View style={{ flex: 2 }}>
                     <Input 
+                        onChangeText={text => this.props.changeEmail(text)}
                         value={this.props.email}
                         inputContainerStyle={styles.inputContainer}  
                         placeholder='E-mail'
@@ -27,7 +30,9 @@ class FormLogin extends Component {
                         }
                     />
                     <Input 
+                        onChangeText={text => this.props.changePassword(text)}
                         value={this.props.password}
+                        secureTextEntry
                         inputContainerStyle={styles.inputContainer} 
                         placeholder='Senha' 
                         leftIcon={ 
@@ -80,4 +85,5 @@ const mapStateToProps = state => (
     }
 
 );
-export default connect(mapStateToProps, null)(FormLogin);
+export default connect(mapStateToProps, { changeEmail, changePassword })(FormLogin);
+
