@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    loadState: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, password: action.payload };
         case 'change_name':
             return { ...state, name: action.payload };
+        case 'is_loading':
+            return { ...state, loadState: true };
+        case 'registration_successfull':
+            return { ...state, loadState: false };
+        case 'registration_failed':
+            return { ...state, loadState: false };
         default:
             return state;
     }   

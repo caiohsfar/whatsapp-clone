@@ -1,3 +1,6 @@
+import firebase from 'react-native-firebase';
+
+
 export const changeEmail = (text) => ({ 
     type: 'change_email', 
     payload: text 
@@ -13,7 +16,21 @@ export const changeName = (text) => ({
     payload: text
 });
 
-export const registerUser = (name, email, password) => ({
-    type: 'register_user',
-    payload: { name, email, password }
+export const isLoading = () => ({
+    type: 'is_loading',
 });
+
+// eslint-disable-next-line no-unused-vars
+export const registerUser = ({ name, email, password }) => dispatch => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(user => onSuccess(dispatch))
+            .catch(error => onFailure(dispatch, error));
+    };
+
+const onSuccess = (dispatch) => (
+    dispatch({ type: 'registration_successfull' })
+);
+
+const onFailure = (dispatch) => (
+   dispatch({ type: 'registration_failed' })
+);

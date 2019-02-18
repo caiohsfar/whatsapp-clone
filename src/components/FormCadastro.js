@@ -7,17 +7,17 @@ import {
     changeEmail, 
     changePassword, 
     changeName, 
-    registerUser 
+    registerUser,
+    isLoading
 } from '../actions/AutenticationAction';
 
 class FormCadastro extends Component {
     static navigationOptions = {
         title: 'Cadastro'
     };
-
     _registerUser() {
         const { name, email, password } = this.props;
-        
+        this.props.isLoading();
         this.props.registerUser({ name, email, password });
     }
     render() {
@@ -29,6 +29,7 @@ class FormCadastro extends Component {
                         value={this.props.name}
                         inputContainerStyle={styles.inputContainer}
                         placeholder="Nome"
+                        shake
                         leftIcon={ 
                             <Icon
                                 name='account-circle'
@@ -43,6 +44,7 @@ class FormCadastro extends Component {
                         value={this.props.email}
                         inputContainerStyle={styles.inputContainer}
                         placeholder="E-mail" 
+                        shake
                         leftIcon={ 
                             <Icon
                                 name='email'
@@ -57,6 +59,7 @@ class FormCadastro extends Component {
                         secureTextEntry
                         inputContainerStyle={styles.inputContainer}
                         placeholder="Senha" 
+                        shake
                         leftIcon={ 
                             <Icon
                                 name='lock'
@@ -68,12 +71,13 @@ class FormCadastro extends Component {
                 </View>
                 <View style={{ flex: 2 }}>
                     <Button 
+                        loading={this.props.loadState}
                         buttonStyle={{ borderColor: '#0080ff' }}
                         titleStyle={{ color: '#0080ff' }}
                         type='outline' 
                         title="Cadastrar" 
                         color="#115E54" 
-                        onPress={() => this._registerUser()} 
+                        onPress={() => this._registerUser()}
                     />
                 </View>
             </View>
@@ -91,7 +95,8 @@ const mapStateToProps = state => (
     {
         name: state.AutenticationReducer.name,
         email: state.AutenticationReducer.email,
-        password: state.AutenticationReducer.password
+        password: state.AutenticationReducer.password,
+        loadState: state.AutenticationReducer.loadState
     }
 );
 
@@ -101,5 +106,6 @@ export default connect(
         changeEmail, 
         changePassword, 
         changeName, 
-        registerUser 
+        registerUser,
+        isLoading
 })(FormCadastro);
