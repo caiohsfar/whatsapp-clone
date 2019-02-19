@@ -31,6 +31,6 @@ const onSuccess = (dispatch) => (
     dispatch({ type: 'registration_successfull' })
 );
 
-const onFailure = (dispatch) => (
-   dispatch({ type: 'registration_failed' })
+const onFailure = (dispatch, error) => (
+   dispatch({ type: 'registration_failed', payload: error.message })
 );

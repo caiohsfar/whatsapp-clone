@@ -11,7 +11,7 @@ import { reducers } from './reducers';
 
 const AppWithNavigationState = createAppContainer(Routes);
 
-export default class App extends Component {
+export default class App extends Component<{}> {
     render() {
         return (
             <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>

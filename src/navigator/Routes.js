@@ -4,6 +4,8 @@ import {
 import FormLogin from '../components/FormLogin';
 import FormCadastro from '../components/FormCadastro';
 
+console.log(FormCadastro);
+
 export default createStackNavigator(
     {
         FormLogin,
