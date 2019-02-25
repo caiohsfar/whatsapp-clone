@@ -1,5 +1,6 @@
+import b64 from 'base-64';
 import firebase from 'react-native-firebase';
-
+import NavigationService from '../navigator/NavigationService';
 
 export const changeEmail = (text) => ({ 
     type: 'change_email', 
@@ -23,14 +24,42 @@ export const isLoading = () => ({
 // eslint-disable-next-line no-unused-vars
 export const registerUser = ({ name, email, password }) => dispatch => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => onSuccess(dispatch))
-            .catch(error => onFailure(dispatch, error));
+            .then(user => {
+                const emailB64 = b64.encode(email); 
+
+                firebase.database().ref(`/contatos/${emailB64}`)
+                    .push({ name })
+                    .then(value => onRegistrationSuccess(dispatch));  
+            })
+            .catch(error => onRegistrationFailure(dispatch, error));
     };
 
-const onSuccess = (dispatch) => (
-    dispatch({ type: 'registration_successfull' })
+const onRegistrationSuccess = (dispatch) => {
+    dispatch({ type: 'registration_successfull' });
+    NavigationService.navigate('Wellcome');
+};
+
+const onRegistrationFailure = (dispatch, error) => (
+   dispatch({ 
+       type: 'registration_failed', 
+       payload: error.message 
+    })
 );
 
-const onFailure = (dispatch, error) => (
-   dispatch({ type: 'registration_failed', payload: error.message })
+export const autenticateUser = ({ email, password }) => dispatch => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(user => onSignInSuccess(dispatch))
+        .catch(error => onSignInFailure(dispatch, error));
+};
+
+const onSignInSuccess = (dispatch) => {
+    dispatch({ type: 'login_successfull' });
+    NavigationService.replace('Home');
+};
+
+const onSignInFailure = (dispatch, error) => (
+    dispatch({
+        type: 'login_failed',
+        payload: error.message
+    })
 );

@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import ReduxThunk from 'redux-thunk';
 
+import NavigationService from './navigator/NavigationService';
 import Routes from './navigator/Routes';
 
 import { reducers } from './reducers';
@@ -15,7 +16,11 @@ export default class App extends Component<{}> {
     render() {
         return (
             <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-               <AppWithNavigationState /> 
+               <AppWithNavigationState 
+                    ref={navigatorRef => {
+                        NavigationService.setTopLevelNavigator(navigatorRef);
+                    }}
+               /> 
             </Provider>
         );
     } 

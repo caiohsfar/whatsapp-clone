@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+//The input fields are being controlled by redux for a didatic reason.
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input, Button, Icon, Text } from 'react-native-elements';
@@ -111,7 +112,7 @@ class FormCadastro extends Component {
                 </View>
                 <View style={{ flex: 2 }}>
                     <Text style={{ color: 'red', fontSize: 18 }}>
-                        {this.props.errorMessage}
+                        {this.props.errorMessageReg}
                     </Text>
                     <Button 
                         loading={this.props.loadState}
@@ -141,7 +142,7 @@ const mapStateToProps = state => (
         email: state.AutenticationReducer.email,
         password: state.AutenticationReducer.password,
         loadState: state.AutenticationReducer.loadState,
-        errorMessage: state.AutenticationReducer.errorMessage
+        errorMessageReg: state.AutenticationReducer.errorMessageReg
     }
 );
 
