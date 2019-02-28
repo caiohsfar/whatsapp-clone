@@ -8,7 +8,7 @@ import ReduxThunk from 'redux-thunk';
 import NavigationService from './navigator/NavigationService';
 import Routes from './navigator/Routes';
 
-import { reducers } from './reducers';
+import { reducers } from './store/reducers';
 
 const AppWithNavigationState = createAppContainer(Routes);
 

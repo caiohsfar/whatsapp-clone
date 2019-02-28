@@ -1,4 +1,15 @@
 //The input fields are being controlled by redux for a didatic reason.
+import { 
+    CHANGE_EMAIL, 
+    CHANGE_PASSWORD, 
+    CHANGE_NAME, 
+    IS_LOADING, 
+    REGISTRATION_SUCCSESSFULL, 
+    REGISTRATION_FAILED, 
+    LOGIN_SUCCESSFULL, 
+    LOGIN_FAILED 
+} from '../actions/types';
+
 const INITIAL_STATE = {
     name: '',
     email: '',
@@ -10,21 +21,21 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'change_email':
+        case CHANGE_EMAIL:
             return { ...state, email: action.payload };
-        case 'change_password':
+        case CHANGE_PASSWORD:
             return { ...state, password: action.payload };
-        case 'change_name':
+        case CHANGE_NAME:
             return { ...state, name: action.payload };
-        case 'is_loading':
-            return { ...state, loadState: true };
-        case 'registration_successfull':
+        case IS_LOADING:
+            return { ...state, loadState: true, errorMessageReg: '', errorMessageLogin: '' };
+        case REGISTRATION_SUCCSESSFULL:
             return { ...state, loadState: false, password: '', name: '', errorMessageReg: '' };
-        case 'registration_failed':
+        case REGISTRATION_FAILED:
             return { ...state, loadState: false, errorMessageReg: action.payload };
-        case 'login_successfull':
+        case LOGIN_SUCCESSFULL:
             return { ...state, loadState: false, errorMessageLogin: '', password: '' }; 
-        case 'login_failed':
+        case LOGIN_FAILED:
             return { ...state, loadState: false, errorMessageLogin: action.payload };
         default:
             return state;

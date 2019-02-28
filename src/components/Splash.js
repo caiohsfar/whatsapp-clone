@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image, View } from 'react-native';
 import firebase from 'react-native-firebase';
 import NavigationService from '../navigator/NavigationService';
 
 
-export default class Splash extends Component {
+export default class Splash extends PureComponent {
   static navigationOptions = {
     header: null
   }
@@ -27,7 +27,7 @@ export default class Splash extends Component {
     this.changeScreen();
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Image source={require('../imgs/logo.png')} /> 
+        <Image source={require('../images/logo.png')} /> 
       </View>
     );
   }

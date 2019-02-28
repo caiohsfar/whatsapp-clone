@@ -6,8 +6,9 @@ import FormCadastro from '../components/FormCadastro';
 import Wellcome from '../components/Wellcome';
 import Home from '../components/Home';
 import Splash from '../components/Splash';
-
-console.log(FormCadastro);
+import AddFriend from '../components/AddFriend';
+import Chat from '../components/Chat';
+import Contacts from '../components/Contacts';
 
 export default createStackNavigator(
     {   
@@ -15,7 +16,11 @@ export default createStackNavigator(
         FormLogin,
         FormCadastro,
         Wellcome,
-        Home
+        Home,
+        Chat: { screen: Chat },
+        Contacts: { screen: Contacts },           
+        AddFriend,
+        
     },
     {
         defaultNavigationOptions: {

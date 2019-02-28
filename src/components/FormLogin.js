@@ -7,7 +7,7 @@ import {
     changePassword, 
     autenticateUser, 
     isLoading 
-} from '../actions/AutenticationAction';
+} from '../store/actions/AutenticationAction';
 
 class FormLogin extends Component {
     static navigationOptions = {

@@ -10,7 +10,7 @@ import {
     changeName, 
     registerUser,
     isLoading
-} from '../actions/AutenticationAction';
+} from '../store/actions/AutenticationAction';
 
 class FormCadastro extends Component {
     static navigationOptions = {
