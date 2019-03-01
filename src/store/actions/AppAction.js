@@ -113,7 +113,17 @@ export const fetchUserChat = (contactEmail) => {
     return dispatch => {
         firebase.database().ref(`/mensagens/${userEmailB64}/${contactEmailB64}`)
         .on('value', snapshot => {
-            dispatch({ type: USER_CHAT_LIST, payload: snapshot.val() });
+            let chatList = [];
+            snapshot.forEach(childSnapshot => {
+                chatList = [{
+                            uid: childSnapshot.key,
+                            tipo: childSnapshot.val().tipo,
+                            mensagem: childSnapshot.val().mensagem 
+                        }, 
+                        ...chatList
+                    ];
+                });
+            dispatch({ type: USER_CHAT_LIST, payload: chatList });
         });
     };
 };  

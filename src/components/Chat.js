@@ -99,7 +99,7 @@ class Chat extends Component {
     }
 }
 const mapStateToProps = state => {
-    const chat = _.map(state.ChatListReducer, (val, uid) => ({ ...val, uid }));
+    const chat = state.ChatListReducer;
     return {
         chat
     };
